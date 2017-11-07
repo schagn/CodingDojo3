@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodingDojo2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="620" Width="1000" Background="Black">
+        Title="MainWindow" Height="700" Width="1000" Background="Black">
     <Grid Margin="0,6,-0.333,-6.333">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-
+        
         <Border Margin="4"  BorderBrush="Red"   BorderThickness="1.5">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
@@ -25,18 +25,37 @@
             </StackPanel>
         </Border>
 
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="...tbd..." Foreground="White" TextAlignment="Center" VerticalAlignment="Center"  ></TextBlock>
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical">
+            <Label Content="Aktoren" Foreground="White" Margin="10,0,0,5"/>
+            <DataGrid Height="200" VerticalAlignment="Top" Margin="10,5,10,5">
+                
+            </DataGrid >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Hinzufügen" Margin="5" Height="30" Width="70"/>
+                <Button Content="Löschen" Margin="5" Height="30" Width="50"/>
+            </StackPanel>
 
+            <Label Content="Sensoren" Foreground="White" Margin="10,0,0,5"/>
+            <DataGrid Height="200" VerticalAlignment="Top" Margin="10,5,10,5">
 
-        <Border Grid.Column="1" Grid.RowSpan="2"  BorderBrush="White"  BorderThickness="1,0,0,0" >
+            </DataGrid >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Hinzufügen" Margin="5" Height="30" Width="70"/>
+                <Button Content="Löschen" Margin="5" Height="30" Width="50"/>
+            </StackPanel>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height=" *"/>
-                    <RowDefinition Height="80"/>
-                </Grid.RowDefinitions>
+        </StackPanel>
+        
+        
+     <Border Grid.Column="1" Grid.RowSpan="2"  BorderBrush="White"  BorderThickness="1,0,0,0" >
 
-                <StackPanel Orientation="Vertical" Margin="0,0,-0.333,9.667" Grid.RowSpan="2">
+        <Grid>
+           <Grid.RowDefinitions>
+              <RowDefinition Height=" *"/>
+              <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Vertical" Margin="0,0,-0.333,0" Grid.RowSpan="2">
                     <Border BorderThickness="0,0,0,1" BorderBrush="White">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -91,13 +110,13 @@
                         </StackPanel>
                     </Border>
 
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Image Source="Images/Bell new-WF.png"  Height="30" Width="40" Margin="2" />
-                        <Image Source="Images/Speaker Decrease - 01.png"  Height="30" Width="40" Margin="2" />
-                        <Label Content="4" Foreground="White" Margin=" 3" FontSize="15"/>
-                        <Image Source="Images/Speaker Increase - 02.png"  Height="30" Width="40" Margin="2" />
-                    </StackPanel>
+                    
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image Source="Images/Bell new-WF.png"  Height="30" Width="40" Margin="2" />
+                            <Image Source="Images/Speaker Decrease - 01.png"  Height="30" Width="40" Margin="2" />
+                            <Label Content="4" Foreground="White" Margin=" 3" FontSize="15"/>
+                            <Image Source="Images/Speaker Increase - 02.png"  Height="30" Width="40" Margin="2" />
+                        </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label  Content="12:34" Foreground="White" Margin="2" FontSize="15"></Label>
@@ -109,11 +128,11 @@
 
 
 
-                </StackPanel>
+                </StackPanel> 
+                
+       </Grid>
 
-            </Grid>
-
-        </Border>
+     </Border>
 
 
     </Grid>
