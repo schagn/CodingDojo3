@@ -20,6 +20,8 @@ namespace CodingDojo3.ViewModel
         public ObservableCollection<ItemVm> Actors { get; set; }
         public ObservableCollection<ItemVm> Sensors { get; set; }
 
+        public ObservableCollection<string> ModeList { get; private set; }
+
         private string curTime = DateTime.Now.ToLocalTime().ToShortTimeString();
         private string curDate = DateTime.Now.ToLocalTime().ToShortDateString();
 
@@ -41,9 +43,11 @@ namespace CodingDojo3.ViewModel
         {
            
            
-           Actors = new ObservableCollection<ItemVm>();
-           Sensors = new ObservableCollection<ItemVm>();
-
+         Actors = new ObservableCollection<ItemVm>();
+         Sensors = new ObservableCollection<ItemVm>();
+         ModeList = new ObservableCollection<string>();
+           
+         // Mode Liste befüllen
 
 
             timer.Interval = new TimeSpan(0, 0, 10);
