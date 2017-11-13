@@ -15,7 +15,7 @@ namespace CodingDojo3.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private Simulator sim;
-        private List<ItemVm> Items = new List<ItemVm>();
+        private List<ItemVm> AllItems = new List<ItemVm>();
 
         public ObservableCollection<ItemVm> Actors { get; set; }
         public ObservableCollection<ItemVm> Sensors { get; set; }
@@ -51,6 +51,19 @@ namespace CodingDojo3.ViewModel
 
             timer.Start();
 
+            LoadSampleDataFromSimulator();
+
+            if (!IsInDesignMode)
+            {
+                
+
+                timer.Start();
+            }
+
+            
+
+
+
 
 
         }
@@ -65,7 +78,20 @@ namespace CodingDojo3.ViewModel
         public void LoadSampleDataFromSimulator()
         {
 
-            sim = new Simulator(Items);
+            sim = new Simulator(AllItems);
+
+            foreach(var item in sim.Items)
+            {
+                if(item.ValueType.Equals(typeof(IActuator)))
+                {
+                    Actors.Add(item);
+                }
+
+                if (item.ValueType.Equals(typeof(ISensor)))
+                {
+                    Sensors.Add(item);
+                }
+            }
 
 
         }
