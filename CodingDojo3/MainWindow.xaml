@@ -1,11 +1,18 @@
-﻿<Window x:Class="CodingDojo3.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodingDojo3"
+        xmlns:Converters="clr-namespace:CodingDojo3.Converters" x:Class="CodingDojo3.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000" Background="Black" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+        Title="MainWindow" Height="820" Width="1100" Background="Black">
+    <Window.Resources>
+        <Converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Mode="OneWay" Path="Main" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
     <Grid Margin="0,6,-0.333,-6.333">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -15,150 +22,93 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-        
+
         <Border Margin="4"  BorderBrush="Red"   BorderThickness="1.5">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
                 <Image Source="Images/Warning-WF.png" Margin="2" Height="40"/>
-                <Label Content="Überlauf Grauwasser" Foreground="White" FontSize="16" VerticalAlignment="Center"></Label>
+                <Label Content="Überlauf Grauwasser" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
 
             </StackPanel>
         </Border>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical">
             <Label Content="Aktoren" Foreground="White" Margin="10,0,0,5"/>
-            <DataGrid Height="200" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Actors}" AutoGenerateColumns="True">
-               
-            </DataGrid >
+            <DataGrid MinHeight="200" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Actors}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Hinzufügen" Margin="5" Height="30" Width="70"/>
                 <Button Content="Löschen" Margin="5" Height="30" Width="50"/>
             </StackPanel>
 
             <Label Content="Sensoren" Foreground="White" Margin="10,0,0,5"/>
-            <DataGrid Height="200" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Sensors}" AutoGenerateColumns="False">
+            <DataGrid MinHeight="200" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Sensors}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}" />
-
-                    <DataGridTemplateColumn Header="Name">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding Name}" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="Description">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding Description}" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="Room">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding Room}" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Room" Binding="{Binding Room}" />
+                    
                     <DataGridTemplateColumn Header="Mode">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Mode}" />
                             </DataTemplate>
-                            
+
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <ComboBox SelectedItem="{Binding Mode}" ItemsSource="{Binding DataContext.ModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"  />
+                               <!-- <ComboBox SelectedItem="{Binding Mode}" ItemsSource="{Binding DataContext.ModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"  /> -->
+                                <ComboBox SelectedItem="{Binding Mode, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.ModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Height="25"/>
+
                             </DataTemplate>
-                            
+
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    
+
                     <DataGridTextColumn Header="ValueType" Binding="{Binding ValueType, Mode=OneWay}" />
 
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Ellipse Height="10" Width="10" Fill="Red"> </Ellipse>
+                                <Ellipse Height="10" Width="10" Fill="{Binding Mode,Converter={StaticResource StringToBrushConverter}, Mode=OneWay}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Value">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding Value}" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Value" Binding="{Binding Value}" ></DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="PosX">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding PosX}" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="PosY">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding PosY}" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="PosX" Binding="{Binding PosX}" />
+                    <DataGridTextColumn Header="PosY" Binding="{Binding PosY}" />
 
                 </DataGrid.Columns>
 
-            </DataGrid >
+            </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Hinzufügen" Margin="5" Height="30" Width="70"/>
                 <Button Content="Löschen" Margin="5" Height="30" Width="50"/>
             </StackPanel>
 
         </StackPanel>
-        
-        
-     <Border Grid.Column="1" Grid.RowSpan="2"  BorderBrush="White"  BorderThickness="1,0,0,0" >
 
-        <Grid>
-           <Grid.RowDefinitions>
-              <RowDefinition Height=" *"/>
-              <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
+
+        <Border Grid.Column="1" Grid.RowSpan="2"  BorderBrush="White"  BorderThickness="1,0,0,0" >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=" *"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Vertical" Margin="0,0,-0.333,0" Grid.RowSpan="2">
                     <Border BorderThickness="0,0,0,1" BorderBrush="White">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Cloud sun02-Wf.png" Height="30" Width="40" Margin="2"/>
-                                <Label Content="20 °" Foreground="White" Margin="3" FontSize="15"/>
+                                <Image Source="Images/Cloud sun02-Wf.png" Height="50" Width="40" Margin="2"/>
+                                <Label Content="20 °" Foreground="White" Margin="3" FontSize="20"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Wind.png"  Height="30" Width="40" Margin="2"/>
-                                <Label Content="12 km/h" Foreground="White" Margin=" 3" FontSize="15"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-
-                    <Border BorderThickness="0,0,0,1" BorderBrush="White">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Solar.png"  Height="30" Width="40" Margin="2" />
-                                <Label Content="3.545 W" Foreground="White" Margin=" 3" FontSize="15"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Man-01.png"  Height="30" Width="40" Margin="2" />
-                                <Label Content="0" Foreground="White" Margin=" 3" FontSize="15"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Lock-WF.png"  Height="30" Width="40" Margin="2"/>
-                                <Label Content="OK" Foreground="White" Margin="3" FontSize="15"/>
+                                <Image Source="Images/Wind.png"  Height="50" Width="40" Margin="2"/>
+                                <Label Content="12 km/h" Foreground="White" Margin=" 3" FontSize="20"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -166,50 +116,67 @@
                     <Border BorderThickness="0,0,0,1" BorderBrush="White">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Message Mail-WF.png"  Height="30" Width="40" Margin="2" />
-                                <Label Content="7" Foreground="White" Margin=" 3" FontSize="15"/>
+                                <Image Source="Images/Solar.png"  Height="50" Width="40" Margin="2" />
+                                <Label Content="3.545 W" Foreground="White" Margin=" 3" FontSize="20"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Tasks.png"  Height="30" Width="40" Margin="2" />
-                                <Label Content="4" Foreground="White" Margin=" 3" FontSize="15"/>
+                                <Image Source="Images/Man-01.png"  Height="50" Width="40" Margin="2" />
+                                <Label Content="0" Foreground="White" Margin=" 3" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Lock-WF.png"  Height="50" Width="40" Margin="2"/>
+                                <Label Content="OK" Foreground="White" Margin="3" FontSize="20"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border BorderThickness="0,0,0,1" BorderBrush="White">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Message Mail-WF.png"  Height="50" Width="40" Margin="2" />
+                                <Label Content="7" Foreground="White" Margin=" 3" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Tasks.png"  Height="50" Width="40" Margin="2" />
+                                <Label Content="4" Foreground="White" Margin=" 3" FontSize="20"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
 
                     <Border BorderThickness="0,0,0,1" BorderBrush="White">
                         <StackPanel Orientation="Vertical">
-                            <Button Content="Übersicht" Height="24" Margin="10,10,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="15"/>
-                            <Button Content="Räume" Height="24" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="15"/>
-                            <Button Content="Geräte" Height="24" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="15"/>
-                            <Button Content="Gebäude" Height="24" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="15"/>
-                            <Button Content="Sicherheit" Height="24" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="15"/>
-                            <Button Content="Multimedia" Height="24" Margin="10,5,10,10" Background="Black" BorderBrush="White" Foreground="White" FontSize="15"/>
+                            <Button Content="Übersicht" Height="30" Margin="10,10,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="18"/>
+                            <Button Content="Räume" Height="30" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="18"/>
+                            <Button Content="Geräte" Height="30" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="18"/>
+                            <Button Content="Gebäude" Height="30" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="18"/>
+                            <Button Content="Sicherheit" Height="30" Margin="10,5,10,5" Background="Black" BorderBrush="White" Foreground="White" FontSize="18"/>
+                            <Button Content="Multimedia" Height="30" Margin="10,5,10,10" Background="Black" BorderBrush="White" Foreground="White" FontSize="18"/>
                         </StackPanel>
                     </Border>
 
-                    
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Image Source="Images/Bell new-WF.png"  Height="30" Width="40" Margin="2" />
-                            <Image Source="Images/Speaker Decrease - 01.png"  Height="30" Width="40" Margin="2" />
-                            <Label Content="4" Foreground="White" Margin=" 3" FontSize="15"/>
-                            <Image Source="Images/Speaker Increase - 02.png"  Height="30" Width="40" Margin="2" />
-                        </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="{Binding CurTime}" Foreground="White" Margin="2" FontSize="15"></Label>
+                        <Image Source="Images/Bell new-WF.png"  Height="50" Width="40" Margin="2" />
+                        <Image Source="Images/Speaker Decrease - 01.png"  Height="50" Width="40" Margin="2" />
+                        <Label Content="4" Foreground="White" Margin=" 3" FontSize="20"/>
+                        <Image Source="Images/Speaker Increase - 02.png"  Height="50" Width="40" Margin="2" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label  Content="{Binding CurDate}" Foreground="White" Margin="2" FontSize="15"></Label>
+                        <Label Content="{Binding CurTime}" Foreground="White" Margin="2" FontSize="20"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label  Content="{Binding CurDate}" Foreground="White" Margin="2" FontSize="20"/>
                     </StackPanel>
 
 
 
-                </StackPanel> 
-                
-       </Grid>
+                </StackPanel>
 
-     </Border>
+            </Grid>
+
+        </Border>
 
 
     </Grid>

@@ -15,7 +15,7 @@ namespace CodingDojo3.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private Simulator sim;
-        private List<ItemVm> AllItems = new List<ItemVm>();
+        private List<ItemVm> AllItems;
 
         public ObservableCollection<ItemVm> Actors { get; set; }
         public ObservableCollection<ItemVm> Sensors { get; set; }
@@ -41,34 +41,39 @@ namespace CodingDojo3.ViewModel
 
         public MainViewModel()
         {
-           
+
+         AllItems = new List<ItemVm>();
            
          Actors = new ObservableCollection<ItemVm>();
          Sensors = new ObservableCollection<ItemVm>();
          ModeList = new ObservableCollection<string>();
-           
-         // Mode Liste befüllen
 
+
+
+            // Mode Liste befüllen
+
+            foreach (var item in Enum.GetNames(typeof(SensorModeType)))
+            {
+                ModeList.Add(item);
+            }
+            foreach (var item in Enum.GetNames(typeof(ModeType)))
+            {
+                ModeList.Add(item);
+
+            }
+
+            if (!IsInDesignMode)
+            {
+                LoadSampleDataFromSimulator();
+
+            }
 
             timer.Interval = new TimeSpan(0, 0, 10);
             timer.Tick += new EventHandler(LoadTime);
 
             timer.Start();
 
-            LoadSampleDataFromSimulator();
-
-            if (!IsInDesignMode)
-            {
-                
-
-                timer.Start();
-            }
-
-            
-
-
-
-
+           
 
         }
 
@@ -82,18 +87,18 @@ namespace CodingDojo3.ViewModel
         public void LoadSampleDataFromSimulator()
         {
 
-            sim = new Simulator(AllItems);
+            Simulator sim = new Simulator(AllItems);
 
-            foreach(var item in sim.Items)
+            foreach(var listitem in sim.Items)
             {
-                if(item.ValueType.Equals(typeof(IActuator)))
+                if(listitem.ItemType.Equals(typeof(IActuator)))
                 {
-                    Actors.Add(item);
+                    Actors.Add(listitem);
                 }
 
-                if (item.ValueType.Equals(typeof(ISensor)))
+                if (listitem.ItemType.Equals(typeof(ISensor)))
                 {
-                    Sensors.Add(item);
+                    Sensors.Add(listitem);
                 }
             }
 
