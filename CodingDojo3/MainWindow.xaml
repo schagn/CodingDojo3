@@ -58,7 +58,7 @@
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                <!-- <ComboBox SelectedItem="{Binding Mode}" ItemsSource="{Binding DataContext.ModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"  /> -->
-                                <ComboBox SelectedItem="{Binding Mode, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.ModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Height="25"/>
+                                <ComboBox SelectedItem="{Binding Mode, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.SensorModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Height="25"/>
 
                             </DataTemplate>
 

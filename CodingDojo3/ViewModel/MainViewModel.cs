@@ -20,7 +20,8 @@ namespace CodingDojo3.ViewModel
         public ObservableCollection<ItemVm> Actors { get; set; }
         public ObservableCollection<ItemVm> Sensors { get; set; }
 
-        public ObservableCollection<string> ModeList { get; private set; }
+        public ObservableCollection<string> SensorModeList { get; private set; }
+        public ObservableCollection<string> ActorModeList { get; private set; }
 
         private string curTime = DateTime.Now.ToLocalTime().ToShortTimeString();
         private string curDate = DateTime.Now.ToLocalTime().ToShortDateString();
@@ -46,19 +47,20 @@ namespace CodingDojo3.ViewModel
            
          Actors = new ObservableCollection<ItemVm>();
          Sensors = new ObservableCollection<ItemVm>();
-         ModeList = new ObservableCollection<string>();
+         SensorModeList = new ObservableCollection<string>();
+         ActorModeList = new ObservableCollection<string>();
 
 
 
-            // Mode Liste befüllen
+            //Mode Liste befüllen
 
             foreach (var item in Enum.GetNames(typeof(SensorModeType)))
             {
-                ModeList.Add(item);
+                SensorModeList.Add(item);
             }
             foreach (var item in Enum.GetNames(typeof(ModeType)))
             {
-                ModeList.Add(item);
+                ActorModeList.Add(item);
 
             }
 
@@ -86,6 +88,9 @@ namespace CodingDojo3.ViewModel
 
         public void LoadSampleDataFromSimulator()
         {
+
+            //ModeList.Add("Enabled");
+            //ModeList.Add("Disabled");
 
             Simulator sim = new Simulator(AllItems);
 
