@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CodingDojo3"
         xmlns:Converters="clr-namespace:CodingDojo3.Converters" x:Class="CodingDojo3.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="820" Width="1100" Background="Black">
+        Title="MainWindow" Height="750" Width="1100" Background="Black">
     <Window.Resources>
         <Converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
     </Window.Resources>
@@ -34,14 +34,14 @@
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical">
             <Label Content="Aktoren" Foreground="White" Margin="10,0,0,5"/>
-            <DataGrid MinHeight="200" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Actors}"/>
+            <DataGrid MinHeight="150" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Actors}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Hinzufügen" Margin="5" Height="30" Width="70"/>
                 <Button Content="Löschen" Margin="5" Height="30" Width="50"/>
             </StackPanel>
 
             <Label Content="Sensoren" Foreground="White" Margin="10,0,0,5"/>
-            <DataGrid MinHeight="200" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Sensors}" AutoGenerateColumns="False">
+            <DataGrid MinHeight="150" VerticalAlignment="Top" Margin="10,5,10,5" ItemsSource="{Binding Sensors}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
@@ -57,8 +57,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                               <!-- <ComboBox SelectedItem="{Binding Mode}" ItemsSource="{Binding DataContext.ModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"  /> -->
-                                <ComboBox SelectedItem="{Binding Mode, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.SensorModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Height="25"/>
+                               <ComboBox SelectedItem="{Binding Mode, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.SensorModeList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Height="25"/>
 
                             </DataTemplate>
 
@@ -103,29 +102,12 @@
                     <Border BorderThickness="0,0,0,1" BorderBrush="White">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Cloud sun02-Wf.png" Height="50" Width="40" Margin="2"/>
-                                <Label Content="20 °" Foreground="White" Margin="3" FontSize="20"/>
+                                <Image Source="Images/Cloud sun02-Wf.png" Height="40" Width="40" Margin="2"/>
+                                <Label Content="20 °" Foreground="White" Margin="3" FontSize="18"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Wind.png"  Height="50" Width="40" Margin="2"/>
-                                <Label Content="12 km/h" Foreground="White" Margin=" 3" FontSize="20"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-
-                    <Border BorderThickness="0,0,0,1" BorderBrush="White">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Solar.png"  Height="50" Width="40" Margin="2" />
-                                <Label Content="3.545 W" Foreground="White" Margin=" 3" FontSize="20"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Man-01.png"  Height="50" Width="40" Margin="2" />
-                                <Label Content="0" Foreground="White" Margin=" 3" FontSize="20"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Lock-WF.png"  Height="50" Width="40" Margin="2"/>
-                                <Label Content="OK" Foreground="White" Margin="3" FontSize="20"/>
+                                <Image Source="Images/Wind.png"  Height="40" Width="40" Margin="2"/>
+                                <Label Content="12 km/h" Foreground="White" Margin="3" FontSize="18"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -133,12 +115,29 @@
                     <Border BorderThickness="0,0,0,1" BorderBrush="White">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Message Mail-WF.png"  Height="50" Width="40" Margin="2" />
-                                <Label Content="7" Foreground="White" Margin=" 3" FontSize="20"/>
+                                <Image Source="Images/Solar.png"  Height="40" Width="40" Margin="2" />
+                                <Label Content="3.545 W" Foreground="White" Margin="3" FontSize="18"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Images/Tasks.png"  Height="50" Width="40" Margin="2" />
-                                <Label Content="4" Foreground="White" Margin=" 3" FontSize="20"/>
+                                <Image Source="Images/Man-01.png"  Height="40" Width="40" Margin="2" />
+                                <Label Content="0" Foreground="White" Margin="3" FontSize="18"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Lock-WF.png"  Height="40" Width="40" Margin="2"/>
+                                <Label Content="OK" Foreground="White" Margin="3" FontSize="18"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border BorderThickness="0,0,0,1" BorderBrush="White">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Message Mail-WF.png"  Height="40" Width="40" Margin="2" />
+                                <Label Content="7" Foreground="White" Margin="3" FontSize="18"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Tasks.png"  Height="40" Width="40" Margin="2" />
+                                <Label Content="4" Foreground="White" Margin="3" FontSize="18"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -156,10 +155,10 @@
 
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Image Source="Images/Bell new-WF.png"  Height="50" Width="40" Margin="2" />
-                        <Image Source="Images/Speaker Decrease - 01.png"  Height="50" Width="40" Margin="2" />
+                        <Image Source="Images/Bell new-WF.png"  Height="40" Width="40" Margin="2" />
+                        <Image Source="Images/Speaker Decrease - 01.png"  Height="40" Width="40" Margin="2" />
                         <Label Content="4" Foreground="White" Margin=" 3" FontSize="20"/>
-                        <Image Source="Images/Speaker Increase - 02.png"  Height="50" Width="40" Margin="2" />
+                        <Image Source="Images/Speaker Increase - 02.png"  Height="40" Width="40" Margin="2" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
